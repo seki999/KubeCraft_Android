@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": 5,
+  "chapterId": 1,
+  "title": "不会消失的订单",
+  "description": "自愈 实践课程",
+  "prerequisites": [
+    4
+  ],
+  "knowledgeIds": [
+    "k005"
+  ],
+  "story": "Leo 的门户需要持续在线。创建 web Deployment，观察控制器生成带 owner 的 Pod。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Leo 的门户需要持续在线。创建 web Deployment，观察控制器生成带 owner 的 Pod。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Deployment 声明期望状态，控制器通过 ReplicaSet 管理 Pod。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #005：web Deployment 至少 1 个 Pod Ready"
+    }
+  ],
+  "simulation": {
+    "seed": 2026005,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "web",
+      "text": "web Deployment 至少 1 个 Pod Ready",
+      "value": 1
+    }
+  ],
+  "hints": [
+    "kubectl create deployment web --image=nginx:1"
+  ],
+  "review": "Deployment 声明期望状态，控制器通过 ReplicaSet 管理 Pod。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 110,
+    "achievement": "chapter-1-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "哪个工作负载声明期望副本与模板？",
+  "knowledgeAnswer": "Deployment"
+}

@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": 38,
+  "chapterId": 8,
+  "title": "日志追踪",
+  "description": "日志来自当前 Pod 的启动/故障状态；生产排查还要结合 Events 与资源指标。",
+  "prerequisites": [
+    37
+  ],
+  "knowledgeIds": [
+    "k038"
+  ],
+  "story": "hello 处于内存故障。读取日志确认原因并修复负载。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 处于内存故障。读取日志确认原因并修复负载。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "日志来自当前 Pod 的启动/故障状态；生产排查还要结合 Events 与资源指标。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026038,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "usageMemory": 900
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "value": 1,
+      "text": "读日志定位 OOM 后恢复",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl logs hello",
+    "sim memory hello 100"
+  ],
+  "review": "日志来自当前 Pod 的启动/故障状态；生产排查还要结合 Events 与资源指标。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 180,
+    "achievement": "chapter-8-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "用于查看容器启动与故障输出的 kubectl 子命令是什么？",
+  "knowledgeAnswer": "Logs"
+}

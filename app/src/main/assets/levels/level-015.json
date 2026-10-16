@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "id": 15,
+  "chapterId": 3,
+  "title": "域名路由 Ingress",
+  "description": "Ingress 将 HTTP host 路由到 Service。这里用内置逻辑路由代替真实 Ingress controller。",
+  "prerequisites": [
+    14
+  ],
+  "knowledgeIds": [
+    "k015"
+  ],
+  "story": "Maya 希望 web.local 可以路由到现有 Service。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Maya 希望 web.local 可以路由到现有 Service。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Ingress 将 HTTP host 路由到 Service。这里用内置逻辑路由代替真实 Ingress controller。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026015,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ],
+      "services": [
+        {
+          "name": "web",
+          "selector": {
+            "app": "web"
+          },
+          "namespace": "default",
+          "type": "ClusterIP"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "route",
+      "target": "web.local",
+      "value": 1,
+      "text": "通过 Ingress 完成一次成功请求",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim ingress gateway --host=web.local --service=web",
+    "sim request web.local"
+  ],
+  "review": "Ingress 将 HTTP host 路由到 Service。这里用内置逻辑路由代替真实 Ingress controller。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 130,
+    "achievement": "chapter-3-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "负责将 HTTP host 路由到 Service 的对象是什么？",
+  "knowledgeAnswer": "Ingress"
+}

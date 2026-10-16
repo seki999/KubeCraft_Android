@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": 20,
+  "chapterId": 4,
+  "title": "分区之间的合作",
+  "description": "跨 Namespace 应显式指定服务所属 Namespace；本模型没有 NetworkPolicy。",
+  "prerequisites": [
+    19
+  ],
+  "knowledgeIds": [
+    "k020"
+  ],
+  "story": "默认空间的客户要访问 payments 团队。先在正确 Namespace 建立服务，再使用命名空间定位。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "默认空间的客户要访问 payments 团队。先在正确 Namespace 建立服务，再使用命名空间定位。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "跨 Namespace 应显式指定服务所属 Namespace；本模型没有 NetworkPolicy。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026020,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "namespaces": [
+        {
+          "name": "default"
+        },
+        {
+          "name": "payments"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2,
+          "namespace": "payments"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "route",
+      "target": "web.payments.svc.cluster.local",
+      "value": 1,
+      "text": "跨 Namespace 访问 payments 服务",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim service web --app=web --namespace=payments",
+    "sim connect web --namespace=payments"
+  ],
+  "review": "跨 Namespace 应显式指定服务所属 Namespace；本模型没有 NetworkPolicy。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 140,
+    "achievement": "chapter-4-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "跨团队访问需明确指定哪个逻辑作用域？",
+  "knowledgeAnswer": "Namespace"
+}

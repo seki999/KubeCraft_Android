@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": 18,
+  "chapterId": 4,
+  "title": "选择器的误会",
+  "description": "Selector 必须与实际 Pod labels 匹配。sim service 是声明式修改 Service 的教学简写。",
+  "prerequisites": [
+    17
+  ],
+  "knowledgeIds": [
+    "k018"
+  ],
+  "story": "Pod 正常，但 Service 错选了另一个 app。修复 selector。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Pod 正常，但 Service 错选了另一个 app。修复 selector。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Selector 必须与实际 Pod labels 匹配。sim service 是声明式修改 Service 的教学简写。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026018,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ],
+      "services": [
+        {
+          "name": "web",
+          "selector": {
+            "app": "wrong"
+          },
+          "namespace": "default",
+          "type": "ClusterIP"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "endpoints",
+      "target": "web",
+      "value": 2,
+      "text": "修复 selector，获得两个端点",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim service web --app=web"
+  ],
+  "review": "Selector 必须与实际 Pod labels 匹配。sim service 是声明式修改 Service 的教学简写。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 140,
+    "achievement": "chapter-4-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Service 中用于匹配标签的字段是什么？",
+  "knowledgeAnswer": "Selector"
+}

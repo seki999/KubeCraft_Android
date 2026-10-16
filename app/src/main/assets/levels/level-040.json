@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 40,
+  "chapterId": 8,
+  "title": "机器人自愈巡航",
+  "description": "Liveness 失败会触发容器重启。此子集用单次成功恢复演示，没有探针时间阈值或真实进程。",
+  "prerequisites": [
+    39
+  ],
+  "knowledgeIds": [
+    "k040"
+  ],
+  "story": "hello 业务健康失败。配置 liveness probe，观察一次容器重启与恢复。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 业务健康失败。配置 liveness probe，观察一次容器重启与恢复。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Liveness 失败会触发容器重启。此子集用单次成功恢复演示，没有探针时间阈值或真实进程。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026040,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "healthy": false
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "probe",
+      "target": "hello",
+      "value": 1,
+      "text": "liveness 触发重启后恢复 Ready",
+      "expected": "liveness"
+    }
+  ],
+  "hints": [
+    "sim probe hello liveness"
+  ],
+  "review": "Liveness 失败会触发容器重启。此子集用单次成功恢复演示，没有探针时间阈值或真实进程。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 180,
+    "achievement": "chapter-8-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "哪类 probe 失败会触发重启？",
+  "knowledgeAnswer": "liveness"
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "id": 46,
+  "chapterId": 10,
+  "title": "选择云端区域",
+  "description": "OCI 模型仅保存区域概念；没有真实租户、IAM、网络、费用或服务 API。",
+  "prerequisites": [
+    45
+  ],
+  "knowledgeIds": [
+    "k046"
+  ],
+  "story": "先选择东京区域，明确城市的教学部署位置。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "先选择东京区域，明确城市的教学部署位置。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "OCI 模型仅保存区域概念；没有真实租户、IAM、网络、费用或服务 API。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026046,
+    "initialState": {}
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "region",
+      "target": "ap-tokyo-1",
+      "value": 1,
+      "text": "选择东京 OCI 教学区域",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim oci-region ap-tokyo-1"
+  ],
+  "review": "OCI 模型仅保存区域概念；没有真实租户、IAM、网络、费用或服务 API。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 200,
+    "achievement": "chapter-10-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "东京、大阪等云资源部署位置的英文概念是什么？",
+  "knowledgeAnswer": "Region"
+}

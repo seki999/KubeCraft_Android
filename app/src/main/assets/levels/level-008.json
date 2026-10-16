@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": 8,
+  "chapterId": 2,
+  "title": "节能夜班",
+  "description": "Scaling 实践课程",
+  "prerequisites": [
+    7
+  ],
+  "knowledgeIds": [
+    "k008"
+  ],
+  "story": "夜间只需一份副本。将 web 从三份缩到一份，释放 requests 资源。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "夜间只需一份副本。将 web 从三份缩到一份，释放 requests 资源。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "缩容降低期望副本，控制器删除多余 Pod。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #008：web 缩容到 1 个 Ready 副本"
+    }
+  ],
+  "simulation": {
+    "seed": 2026008,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 3
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 1,
+      "text": "web 缩容到 1 个 Ready 副本"
+    }
+  ],
+  "hints": [
+    "kubectl scale deployment/web --replicas=1"
+  ],
+  "review": "缩容降低期望副本，控制器删除多余 Pod。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 120,
+    "achievement": "chapter-2-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "缩容需要修改哪个期望字段？",
+  "knowledgeAnswer": "replicas"
+}

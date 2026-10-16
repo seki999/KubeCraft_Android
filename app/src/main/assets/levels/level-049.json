@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "id": 49,
+  "chapterId": 10,
+  "title": "门户上线联合演习",
+  "description": "综合部署将节点、控制器、调度、Service 与 Ingress 的状态串联。云侧只做概念模型。",
+  "prerequisites": [
+    48
+  ],
+  "knowledgeIds": [
+    "k049"
+  ],
+  "story": "从无 Worker 的控制平面起步，部署三副本门户并通过 web.local 访问。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "从无 Worker 的控制平面起步，部署三副本门户并通过 web.local 访问。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "综合部署将节点、控制器、调度、Service 与 Ingress 的状态串联。云侧只做概念模型。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026049,
+    "initialState": {
+      "advanced": {
+        "region": "ap-tokyo-1",
+        "oke": true
+      }
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "pool",
+      "target": "",
+      "value": 2,
+      "text": "两 Worker 节点池",
+      "expected": ""
+    },
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 3,
+      "text": "三份 web Ready",
+      "expected": ""
+    },
+    {
+      "type": "serviceType",
+      "target": "web",
+      "value": 1,
+      "text": "LoadBalancer 后端可用",
+      "expected": "LoadBalancer"
+    },
+    {
+      "type": "route",
+      "target": "web.local",
+      "value": 1,
+      "text": "Ingress 路由访问成功",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim oke-pool 2",
+    "kubectl create deployment web --image=nginx:1",
+    "kubectl scale deployment/web --replicas=3",
+    "kubectl expose deployment web --type=LoadBalancer",
+    "sim ingress gateway --host=web.local --service=web",
+    "sim request web.local"
+  ],
+  "review": "综合部署将节点、控制器、调度、Service 与 Ingress 的状态串联。云侧只做概念模型。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 8
+  },
+  "rewards": {
+    "xp": 200,
+    "achievement": "chapter-10-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "为可替换 Pod 提供稳定访问名称的对象是什么？",
+  "knowledgeAnswer": "Service"
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": 36,
+  "chapterId": 8,
+  "title": "命令行值班",
+  "description": "kubectl 声明或查询对象；输出来自当前模拟快照，终端从不执行系统 shell。",
+  "prerequisites": [
+    35
+  ],
+  "knowledgeIds": [
+    "k036"
+  ],
+  "story": "不用快捷建设按钮，在终端创建 web 并暴露稳定入口。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "不用快捷建设按钮，在终端创建 web 并暴露稳定入口。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "kubectl 声明或查询对象；输出来自当前模拟快照，终端从不执行系统 shell。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026036,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "endpoints",
+      "target": "web",
+      "value": 1,
+      "text": "命令提交的 Service 有 Ready 端点",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl create deployment web --image=nginx:1",
+    "kubectl expose deployment web"
+  ],
+  "review": "kubectl 声明或查询对象；输出来自当前模拟快照，终端从不执行系统 shell。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 180,
+    "achievement": "chapter-8-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "用于与 Kubernetes API 交互的命令行工具是什么？",
+  "knowledgeAnswer": "kubectl"
+}

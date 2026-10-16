@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "id": 23,
+  "chapterId": 5,
+  "title": "跨越 Pod 生命周期",
+  "description": "持久数据由独立卷保存；Pod 生命周期与数据生命周期分离。此模型不提供真实文件 IO。",
+  "prerequisites": [
+    22
+  ],
+  "knowledgeIds": [
+    "k023"
+  ],
+  "story": "为 hello 挂载已供应的存储并写入 hello 数据。数据保存在卷模型而非 Pod 日志中。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "为 hello 挂载已供应的存储并写入 hello 数据。数据保存在卷模型而非 Pod 日志中。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "持久数据由独立卷保存；Pod 生命周期与数据生命周期分离。此模型不提供真实文件 IO。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026023,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello"
+        }
+      ],
+      "volumes": [
+        {
+          "name": "disk",
+          "capacity": 1024
+        }
+      ],
+      "claims": [
+        {
+          "name": "data",
+          "capacity": 512
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "mounted",
+      "target": "hello",
+      "value": 1,
+      "text": "hello 挂载 data",
+      "expected": "data"
+    },
+    {
+      "type": "persisted",
+      "target": "data",
+      "value": 1,
+      "text": "存储中保留 hello",
+      "expected": "hello"
+    }
+  ],
+  "hints": [
+    "sim mount hello pvc data",
+    "sim write data hello"
+  ],
+  "review": "持久数据由独立卷保存；Pod 生命周期与数据生命周期分离。此模型不提供真实文件 IO。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 150,
+    "achievement": "chapter-5-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "独立于容器生命周期的数据存储概念是什么？",
+  "knowledgeAnswer": "Volume"
+}

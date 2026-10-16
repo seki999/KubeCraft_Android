@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": 48,
+  "chapterId": 10,
+  "title": "节点池的工人们",
+  "description": "节点池组织相同配置的 Worker。这里只模拟节点数与 pool 标签，未实现云实例生命周期。",
+  "prerequisites": [
+    47
+  ],
+  "knowledgeIds": [
+    "k048"
+  ],
+  "story": "已有 OKE 教学控制平面，还没有 Worker。添加两节点池容量。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "已有 OKE 教学控制平面，还没有 Worker。添加两节点池容量。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "节点池组织相同配置的 Worker。这里只模拟节点数与 pool 标签，未实现云实例生命周期。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026048,
+    "initialState": {
+      "advanced": {
+        "region": "ap-tokyo-1",
+        "oke": true
+      }
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "pool",
+      "target": "",
+      "value": 2,
+      "text": "OKE 节点池含两个 Ready Worker",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim oke-pool 2"
+  ],
+  "review": "节点池组织相同配置的 Worker。这里只模拟节点数与 pool 标签，未实现云实例生命周期。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 200,
+    "achievement": "chapter-10-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "用于组织同配置 Worker 的英文概念是什么？",
+  "knowledgeAnswer": "Node Pool"
+}

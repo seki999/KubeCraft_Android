@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": 2,
+  "chapterId": 1,
+  "title": "第一个容器信使",
+  "description": "Pod 实践课程",
+  "prerequisites": [
+    1
+  ],
+  "knowledgeIds": [
+    "k002"
+  ],
+  "story": "Maya 带来 nginx 容器。以 Pod 为单位运行 hello，观察 Starting 到 Running。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Maya 带来 nginx 容器。以 Pod 为单位运行 hello，观察 Starting 到 Running。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "容器运行在 Pod 内，Pod 是最小调度单元。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #002：hello Pod 进入 Ready"
+    }
+  ],
+  "simulation": {
+    "seed": 2026002,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "text": "hello Pod 进入 Ready",
+      "value": 1
+    }
+  ],
+  "hints": [
+    "kubectl run hello --image=nginx:1",
+    "推进两次 tick，观察容器启动"
+  ],
+  "review": "容器运行在 Pod 内，Pod 是最小调度单元。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 110,
+    "achievement": "chapter-1-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Kubernetes 的最小调度单元是什么？",
+  "knowledgeAnswer": "Pod"
+}

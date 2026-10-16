@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "id": 50,
+  "chapterId": 10,
+  "title": "云端帝国毕业演习",
+  "description": "毕业目标由配置挂载、卷绑定/数据和 HPA 副本状态联合判断，不依赖点击次数或固定播放动画。",
+  "prerequisites": [
+    49
+  ],
+  "knowledgeIds": [
+    "k050"
+  ],
+  "story": "门户已运行，搭建独立数据工作负载，加入配置与存储，再为门户开启自动伸缩。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "门户已运行，搭建独立数据工作负载，加入配置与存储，再为门户开启自动伸缩。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "毕业目标由配置挂载、卷绑定/数据和 HPA 副本状态联合判断，不依赖点击次数或固定播放动画。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026050,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ],
+      "pods": [
+        {
+          "name": "vault"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "configMounted",
+      "target": "vault",
+      "value": 1,
+      "text": "vault 挂载 settings",
+      "expected": "settings"
+    },
+    {
+      "type": "mounted",
+      "target": "vault",
+      "value": 1,
+      "text": "vault 挂载 data",
+      "expected": "data"
+    },
+    {
+      "type": "persisted",
+      "target": "data",
+      "value": 1,
+      "text": "持久化毕业记录",
+      "expected": "graduate"
+    },
+    {
+      "type": "hpa",
+      "target": "web",
+      "value": 3,
+      "text": "门户至少三副本并由 HPA 管理",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl create configmap settings --from-literal=mode=prod",
+    "sim mount vault configmap settings",
+    "sim pv disk --size=1024",
+    "sim pvc data --size=512",
+    "sim mount vault pvc data",
+    "sim write data graduate",
+    "kubectl autoscale deployment web --min=2 --max=5 --cpu-percent=60",
+    "sim load 90"
+  ],
+  "review": "毕业目标由配置挂载、卷绑定/数据和 HPA 副本状态联合判断，不依赖点击次数或固定播放动画。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 10
+  },
+  "rewards": {
+    "xp": 200,
+    "achievement": "chapter-10-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "应用通过哪种声明申请持久存储？",
+  "knowledgeAnswer": "PVC"
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "id": 47,
+  "chapterId": 10,
+  "title": "托管控制平面",
+  "description": "OKE 是托管 Kubernetes 服务。教学模型将区域和控制平面状态关联，不连接 OCI。",
+  "prerequisites": [
+    46
+  ],
+  "knowledgeIds": [
+    "k047"
+  ],
+  "story": "区域已选择，创建离线 OKE 控制平面模型。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "区域已选择，创建离线 OKE 控制平面模型。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "OKE 是托管 Kubernetes 服务。教学模型将区域和控制平面状态关联，不连接 OCI。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026047,
+    "initialState": {
+      "advanced": {
+        "region": "ap-tokyo-1"
+      }
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "oke",
+      "target": "",
+      "value": 1,
+      "text": "创建 OKE 教学控制平面",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim oke-create"
+  ],
+  "review": "OKE 是托管 Kubernetes 服务。教学模型将区域和控制平面状态关联，不连接 OCI。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 200,
+    "achievement": "chapter-10-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Oracle 的托管 Kubernetes 服务缩写是什么？",
+  "knowledgeAnswer": "OKE"
+}

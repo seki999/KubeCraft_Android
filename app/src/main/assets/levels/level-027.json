@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": 27,
+  "chapterId": 6,
+  "title": "内存红线",
+  "description": "内存 limit 超出会 OOMKilled；本子集在负载降低后允许恢复，没有真实 cgroup 与 CrashLoopBackOff 延迟。",
+  "prerequisites": [
+    26
+  ],
+  "knowledgeIds": [
+    "k027"
+  ],
+  "story": "hello 的模拟使用量超过 limit，查看 OOMKilled 后降低负载并恢复。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 的模拟使用量超过 limit，查看 OOMKilled 后降低负载并恢复。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "内存 limit 超出会 OOMKilled；本子集在负载降低后允许恢复，没有真实 cgroup 与 CrashLoopBackOff 延迟。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026027,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "usageMemory": 600,
+          "limitMemory": 512
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "value": 1,
+      "text": "内存负载回到 limit 内并恢复 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl logs hello",
+    "sim memory hello 64"
+  ],
+  "review": "内存 limit 超出会 OOMKilled；本子集在负载降低后允许恢复，没有真实 cgroup 与 CrashLoopBackOff 延迟。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 160,
+    "achievement": "chapter-6-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "容器资源使用上限字段叫什么？",
+  "knowledgeAnswer": "limits"
+}

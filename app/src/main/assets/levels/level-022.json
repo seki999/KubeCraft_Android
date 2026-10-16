@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 22,
+  "chapterId": 5,
+  "title": "凭据保险箱",
+  "description": "Secret 不等于加密保险箱；生产环境仍需访问控制与静态加密。只使用演示凭据，终端会隐藏存储值。",
+  "prerequisites": [
+    21
+  ],
+  "knowledgeIds": [
+    "k022"
+  ],
+  "story": "把演示凭据放入 Secret，并交给 hello；查询时不回显值。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "把演示凭据放入 Secret，并交给 hello；查询时不回显值。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Secret 不等于加密保险箱；生产环境仍需访问控制与静态加密。只使用演示凭据，终端会隐藏存储值。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026022,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "secretMounted",
+      "target": "hello",
+      "value": 1,
+      "text": "hello 使用 credentials Secret",
+      "expected": "credentials"
+    }
+  ],
+  "hints": [
+    "kubectl create secret generic credentials --from-literal=token=demo",
+    "sim mount hello secret credentials"
+  ],
+  "review": "Secret 不等于加密保险箱；生产环境仍需访问控制与静态加密。只使用演示凭据，终端会隐藏存储值。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 150,
+    "achievement": "chapter-5-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "存储机密键值的 Kubernetes 对象叫什么？",
+  "knowledgeAnswer": "Secret"
+}

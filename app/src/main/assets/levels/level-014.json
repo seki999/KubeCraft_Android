@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 14,
+  "chapterId": 3,
+  "title": "负载均衡灯塔",
+  "description": "LoadBalancer 类型通常需要云控制器供应外部负载均衡器；本地模拟不分配真实公网 IP。",
+  "prerequisites": [
+    13
+  ],
+  "knowledgeIds": [
+    "k014"
+  ],
+  "story": "公共门户需要 LoadBalancer 类型。先确保后端就绪，再建立入口。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "公共门户需要 LoadBalancer 类型。先确保后端就绪，再建立入口。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "LoadBalancer 类型通常需要云控制器供应外部负载均衡器；本地模拟不分配真实公网 IP。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026014,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "serviceType",
+      "target": "web",
+      "value": 1,
+      "text": "LoadBalancer 已拥有 Ready 端点",
+      "expected": "LoadBalancer"
+    }
+  ],
+  "hints": [
+    "kubectl expose deployment web --type=LoadBalancer"
+  ],
+  "review": "LoadBalancer 类型通常需要云控制器供应外部负载均衡器；本地模拟不分配真实公网 IP。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 130,
+    "achievement": "chapter-3-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "哪种 Service 类型通常依赖云控制器？",
+  "knowledgeAnswer": "LoadBalancer"
+}

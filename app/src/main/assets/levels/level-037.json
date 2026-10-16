@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "id": 37,
+  "chapterId": 8,
+  "title": "事件里的线索",
+  "description": "Events 描述控制器/调度器发生的事情；不要把一次错误误当作永久故障。",
+  "prerequisites": [
+    36
+  ],
+  "knowledgeIds": [
+    "k037"
+  ],
+  "story": "hello 无法运行，先查看 FailedScheduling，再提供节点。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 无法运行，先查看 FailedScheduling，再提供节点。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Events 描述控制器/调度器发生的事情；不要把一次错误误当作永久故障。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026037,
+    "initialState": {
+      "pods": [
+        {
+          "name": "hello",
+          "cpu": 250
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "value": 1,
+      "text": "根据 Events 解决 Pending",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl get events",
+    "kubectl create node worker-1"
+  ],
+  "review": "Events 描述控制器/调度器发生的事情；不要把一次错误误当作永久故障。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 180,
+    "achievement": "chapter-8-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "记录调度与控制器行为的对象叫什么？",
+  "knowledgeAnswer": "Events"
+}

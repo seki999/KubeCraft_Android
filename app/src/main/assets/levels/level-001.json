@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "id": 1,
+  "chapterId": 1,
+  "title": "点亮第一座工人站",
+  "description": "Container 实践课程",
+  "prerequisites": [],
+  "knowledgeIds": [
+    "k001"
+  ],
+  "story": "Leo 的街区还没有计算资源。建立一个 Ready Worker，为容器提供落脚点。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Leo 的街区还没有计算资源。建立一个 Ready Worker，为容器提供落脚点。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Node 提供 CPU 与内存，Ready 是调度前提。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #001：建立至少 1 个 Ready Worker"
+    }
+  ],
+  "simulation": {
+    "seed": 2026001,
+    "initialState": {}
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "nodes",
+      "value": 1,
+      "text": "建立至少 1 个 Ready Worker",
+      "target": ""
+    }
+  ],
+  "hints": [
+    "kubectl create node worker-1"
+  ],
+  "review": "Node 提供 CPU 与内存，Ready 是调度前提。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 110,
+    "achievement": "chapter-1-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "调度前节点应处于什么状态？",
+  "knowledgeAnswer": "Ready"
+}

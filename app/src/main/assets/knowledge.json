@@ -1,0 +1,302 @@
+[
+  {
+    "id": "k001",
+    "chapterId": 1,
+    "term": "Container",
+    "text": "Node 提供 CPU 与内存，Ready 是调度前提。"
+  },
+  {
+    "id": "k002",
+    "chapterId": 1,
+    "term": "Pod",
+    "text": "容器运行在 Pod 内，Pod 是最小调度单元。"
+  },
+  {
+    "id": "k003",
+    "chapterId": 1,
+    "term": "Node",
+    "text": "Pending 是状态，FailedScheduling Events 说明原因。"
+  },
+  {
+    "id": "k004",
+    "chapterId": 1,
+    "term": "Scheduler",
+    "text": "Scheduler 只将未绑定 Pod 分配到满足条件的健康节点。"
+  },
+  {
+    "id": "k005",
+    "chapterId": 1,
+    "term": "自愈",
+    "text": "Deployment 声明期望状态，控制器通过 ReplicaSet 管理 Pod。"
+  },
+  {
+    "id": "k006",
+    "chapterId": 2,
+    "term": "Deployment",
+    "text": "ReplicaSet 维护期望副本；扩容需要足够 requests 容量。"
+  },
+  {
+    "id": "k007",
+    "chapterId": 2,
+    "term": "ReplicaSet",
+    "text": "删除受管 Pod 不会删除 Deployment 的期望副本。"
+  },
+  {
+    "id": "k008",
+    "chapterId": 2,
+    "term": "Scaling",
+    "text": "缩容降低期望副本，控制器删除多余 Pod。"
+  },
+  {
+    "id": "k009",
+    "chapterId": 2,
+    "term": "Rolling Update",
+    "text": "滚动更新先创建就绪的新副本，再替换旧副本。"
+  },
+  {
+    "id": "k010",
+    "chapterId": 2,
+    "term": "Rollback",
+    "text": "回滚恢复历史 Pod 模板，仍需要完成一次滚动替换。"
+  },
+  {
+    "id": "k011",
+    "chapterId": 3,
+    "term": "Pod Networking",
+    "text": "Pod 网络模型允许跨节点直接寻址；此处只验证 Ready 与逻辑可达性，不创建真实 CNI。"
+  },
+  {
+    "id": "k012",
+    "chapterId": 3,
+    "term": "Service",
+    "text": "Service 使用标签选择 Pod，端点随就绪状态改变，不绑定某一个固定 Pod。"
+  },
+  {
+    "id": "k013",
+    "chapterId": 3,
+    "term": "NodePort",
+    "text": "NodePort 在节点端口转发到 Service；此模拟只表示类型与端点，不监听端口。"
+  },
+  {
+    "id": "k014",
+    "chapterId": 3,
+    "term": "LoadBalancer",
+    "text": "LoadBalancer 类型通常需要云控制器供应外部负载均衡器；本地模拟不分配真实公网 IP。"
+  },
+  {
+    "id": "k015",
+    "chapterId": 3,
+    "term": "Ingress",
+    "text": "Ingress 将 HTTP host 路由到 Service。这里用内置逻辑路由代替真实 Ingress controller。"
+  },
+  {
+    "id": "k016",
+    "chapterId": 4,
+    "term": "Namespace",
+    "text": "Namespace 隔离对象名称与 Service 发现范围；它本身不提供网络隔离。"
+  },
+  {
+    "id": "k017",
+    "chapterId": 4,
+    "term": "Labels",
+    "text": "Labels 是对象上的键值对，Service selector 通过这些标签动态发现 Pod。"
+  },
+  {
+    "id": "k018",
+    "chapterId": 4,
+    "term": "Selector",
+    "text": "Selector 必须与实际 Pod labels 匹配。sim service 是声明式修改 Service 的教学简写。"
+  },
+  {
+    "id": "k019",
+    "chapterId": 4,
+    "term": "DNS",
+    "text": "Service FQDN 形如 service.namespace.svc.cluster.local，名称解析在本模拟中由对象查找实现。"
+  },
+  {
+    "id": "k020",
+    "chapterId": 4,
+    "term": "跨区访问",
+    "text": "跨 Namespace 应显式指定服务所属 Namespace；本模型没有 NetworkPolicy。"
+  },
+  {
+    "id": "k021",
+    "chapterId": 5,
+    "term": "ConfigMap",
+    "text": "ConfigMap 存非机密配置。本模拟将挂载关系保存在 Pod 中，不实现文件系统与热更新。"
+  },
+  {
+    "id": "k022",
+    "chapterId": 5,
+    "term": "Secret",
+    "text": "Secret 不等于加密保险箱；生产环境仍需访问控制与静态加密。只使用演示凭据，终端会隐藏存储值。"
+  },
+  {
+    "id": "k023",
+    "chapterId": 5,
+    "term": "Volume",
+    "text": "持久数据由独立卷保存；Pod 生命周期与数据生命周期分离。此模型不提供真实文件 IO。"
+  },
+  {
+    "id": "k024",
+    "chapterId": 5,
+    "term": "PV/PVC",
+    "text": "静态 PV 按容量绑定 PVC，一块 PV 只绑定一个 Claim；尚不模拟 StorageClass、访问模式与动态供应。"
+  },
+  {
+    "id": "k025",
+    "chapterId": 5,
+    "term": "StatefulSet",
+    "text": "StatefulSet 使用稳定 Pod 序号，删除后按同一名称恢复。教学子集共享一个预建 Claim，未实现逐副本 volumeClaimTemplates。"
+  },
+  {
+    "id": "k026",
+    "chapterId": 6,
+    "term": "Requests",
+    "text": "Scheduler 使用 requests 预留容量。本教学允许修改未调度 Pod，真实环境通常需重建 Pod 或更新控制器模板。"
+  },
+  {
+    "id": "k027",
+    "chapterId": 6,
+    "term": "Limits",
+    "text": "内存 limit 超出会 OOMKilled；本子集在负载降低后允许恢复，没有真实 cgroup 与 CrashLoopBackOff 延迟。"
+  },
+  {
+    "id": "k028",
+    "chapterId": 6,
+    "term": "Priority",
+    "text": "调度队列按 priority 排序，此模型不支持抢占已运行的低优先级 Pod。"
+  },
+  {
+    "id": "k029",
+    "chapterId": 6,
+    "term": "nodeSelector",
+    "text": "nodeSelector 必须全部匹配节点标签；资源充足也不能绕过标签条件。"
+  },
+  {
+    "id": "k030",
+    "chapterId": 6,
+    "term": "调度诊断",
+    "text": "先看 FailedScheduling 的资源与标签条件，再改变容量；增加副本不等于增加计算资源。"
+  },
+  {
+    "id": "k031",
+    "chapterId": 7,
+    "term": "Scaling",
+    "text": "手动扩容改变期望副本数，由控制器和调度器最终实现。"
+  },
+  {
+    "id": "k032",
+    "chapterId": 7,
+    "term": "HPA",
+    "text": "HPA 按 ceil(当前副本 × 当前 CPU / 目标 CPU) 计算目标；教学模型不含稳定窗口。"
+  },
+  {
+    "id": "k033",
+    "chapterId": 7,
+    "term": "Metrics",
+    "text": "Metrics 是控制器输入；持续低于目标的负载使教学 HPA 缩容至 minReplicas。"
+  },
+  {
+    "id": "k034",
+    "chapterId": 7,
+    "term": "Node Capacity",
+    "text": "HPA/副本控制器不能凭空创造节点容量。节点扩展与 Pod 扩容是不同的动作。"
+  },
+  {
+    "id": "k035",
+    "chapterId": 7,
+    "term": "容量规划",
+    "text": "容量规划需要同时考虑 HPA 上限和每节点可调度资源；maxReplicas 是教学中的硬上限。"
+  },
+  {
+    "id": "k036",
+    "chapterId": 8,
+    "term": "kubectl",
+    "text": "kubectl 声明或查询对象；输出来自当前模拟快照，终端从不执行系统 shell。"
+  },
+  {
+    "id": "k037",
+    "chapterId": 8,
+    "term": "Events",
+    "text": "Events 描述控制器/调度器发生的事情；不要把一次错误误当作永久故障。"
+  },
+  {
+    "id": "k038",
+    "chapterId": 8,
+    "term": "Logs",
+    "text": "日志来自当前 Pod 的启动/故障状态；生产排查还要结合 Events 与资源指标。"
+  },
+  {
+    "id": "k039",
+    "chapterId": 8,
+    "term": "Probes",
+    "text": "Readiness 失败会停止向 Pod 路由，不负责重启。探针与业务健康在本模拟中是显式状态。"
+  },
+  {
+    "id": "k040",
+    "chapterId": 8,
+    "term": "故障恢复",
+    "text": "Liveness 失败会触发容器重启。此子集用单次成功恢复演示，没有探针时间阈值或真实进程。"
+  },
+  {
+    "id": "k041",
+    "chapterId": 9,
+    "term": "YAML",
+    "text": "YAML 是声明式对象输入。编辑器只接受公开示例结构，非完整 YAML/Kubernetes API 实现。"
+  },
+  {
+    "id": "k042",
+    "chapterId": 9,
+    "term": "YAML 校验",
+    "text": "结构校验与类型校验先于提交；无效或未知字段必须拒绝，不能静默创建错误对象。"
+  },
+  {
+    "id": "k043",
+    "chapterId": 9,
+    "term": "Helm",
+    "text": "Helm 教学子集只渲染内置 web-chart 的 Deployment 副本参数，不读取真实 Chart 或运行模板语言。"
+  },
+  {
+    "id": "k044",
+    "chapterId": 9,
+    "term": "Helm 升级",
+    "text": "Release revision 表示一次参数发布，Deployment 控制器落实期望副本。此处未实现 Helm 回滚和依赖包。"
+  },
+  {
+    "id": "k045",
+    "chapterId": 9,
+    "term": "Terraform",
+    "text": "Terraform 教学计划仅描述本地模拟 Worker，不执行 HCL、provider、远端状态或任何真实资源创建。"
+  },
+  {
+    "id": "k046",
+    "chapterId": 10,
+    "term": "OCI",
+    "text": "OCI 模型仅保存区域概念；没有真实租户、IAM、网络、费用或服务 API。"
+  },
+  {
+    "id": "k047",
+    "chapterId": 10,
+    "term": "OKE",
+    "text": "OKE 是托管 Kubernetes 服务。教学模型将区域和控制平面状态关联，不连接 OCI。"
+  },
+  {
+    "id": "k048",
+    "chapterId": 10,
+    "term": "节点池",
+    "text": "节点池组织相同配置的 Worker。这里只模拟节点数与 pool 标签，未实现云实例生命周期。"
+  },
+  {
+    "id": "k049",
+    "chapterId": 10,
+    "term": "综合部署",
+    "text": "综合部署将节点、控制器、调度、Service 与 Ingress 的状态串联。云侧只做概念模型。"
+  },
+  {
+    "id": "k050",
+    "chapterId": 10,
+    "term": "毕业演习",
+    "text": "毕业目标由配置挂载、卷绑定/数据和 HPA 副本状态联合判断，不依赖点击次数或固定播放动画。"
+  }
+]

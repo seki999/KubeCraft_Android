@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "id": 11,
+  "chapterId": 3,
+  "title": "跨节点的信使",
+  "description": "Pod 网络模型允许跨节点直接寻址；此处只验证 Ready 与逻辑可达性，不创建真实 CNI。",
+  "prerequisites": [
+    10
+  ],
+  "knowledgeIds": [
+    "k011"
+  ],
+  "story": "两座节点之间需要传递消息。确认 hello 在第二座节点 Ready，再探测其模拟 Pod 网络。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "两座节点之间需要传递消息。确认 hello 在第二座节点 Ready，再探测其模拟 Pod 网络。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Pod 网络模型允许跨节点直接寻址；此处只验证 Ready 与逻辑可达性，不创建真实 CNI。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026011,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        },
+        {
+          "name": "worker-2"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "node": "worker-2",
+          "phase": "Running",
+          "ready": true
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "route",
+      "target": "pod/hello",
+      "value": 1,
+      "text": "成功探测 Ready hello",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim ping hello"
+  ],
+  "review": "Pod 网络模型允许跨节点直接寻址；此处只验证 Ready 与逻辑可达性，不创建真实 CNI。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 130,
+    "achievement": "chapter-3-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "模拟 Pod 网络只允许访问哪种就绪状态？",
+  "knowledgeAnswer": "Ready"
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": 4,
+  "chapterId": 1,
+  "title": "调度员的选择",
+  "description": "Scheduler 实践课程",
+  "prerequisites": [
+    3
+  ],
+  "knowledgeIds": [
+    "k004"
+  ],
+  "story": "第一座站台故障。添加新的 Worker，让尚未绑定的货运 Pod 得到调度。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "第一座站台故障。添加新的 Worker，让尚未绑定的货运 Pod 得到调度。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Scheduler 只将未绑定 Pod 分配到满足条件的健康节点。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #004：cargo 在健康 Worker 上运行"
+    }
+  ],
+  "simulation": {
+    "seed": 2026004,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1",
+          "ready": false
+        }
+      ],
+      "pods": [
+        {
+          "name": "cargo"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "cargo",
+      "text": "cargo 在健康 Worker 上运行",
+      "value": 1
+    }
+  ],
+  "hints": [
+    "kubectl create node worker-2"
+  ],
+  "review": "Scheduler 只将未绑定 Pod 分配到满足条件的健康节点。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 110,
+    "achievement": "chapter-1-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "负责为未绑定 Pod 选择节点的组件是什么？",
+  "knowledgeAnswer": "Scheduler"
+}

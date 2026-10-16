@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": 42,
+  "chapterId": 9,
+  "title": "修订蓝图的副本数",
+  "description": "结构校验与类型校验先于提交；无效或未知字段必须拒绝，不能静默创建错误对象。",
+  "prerequisites": [
+    41
+  ],
+  "knowledgeIds": [
+    "k042"
+  ],
+  "story": "Leo 要求三副本。将编辑器中的 replicas 改为 3 后应用。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Leo 要求三副本。将编辑器中的 replicas 改为 3 后应用。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "结构校验与类型校验先于提交；无效或未知字段必须拒绝，不能静默创建错误对象。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026042,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 3,
+      "text": "清单期望三副本并全部 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "打开 YAML 编辑器，将 replicas: 2 改为 replicas: 3，应用后推进 tick。"
+  ],
+  "review": "结构校验与类型校验先于提交；无效或未知字段必须拒绝，不能静默创建错误对象。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 190,
+    "achievement": "chapter-9-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "清单中修改哪个字段可改变副本数？",
+  "knowledgeAnswer": "replicas"
+}

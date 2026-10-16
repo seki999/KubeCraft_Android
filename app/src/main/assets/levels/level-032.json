@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": 32,
+  "chapterId": 7,
+  "title": "自动伸缩的节拍",
+  "description": "HPA 按 ceil(当前副本 × 当前 CPU / 目标 CPU) 计算目标；教学模型不含稳定窗口。",
+  "prerequisites": [
+    31
+  ],
+  "knowledgeIds": [
+    "k032"
+  ],
+  "story": "安装 HPA，模拟 90% CPU，观察控制器按目标比例扩容。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "安装 HPA，模拟 90% CPU，观察控制器按目标比例扩容。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "HPA 按 ceil(当前副本 × 当前 CPU / 目标 CPU) 计算目标；教学模型不含稳定窗口。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026032,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "hpa",
+      "target": "web",
+      "value": 3,
+      "text": "HPA 将 web 扩展到至少三份 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl autoscale deployment web --min=1 --max=5 --cpu-percent=60",
+    "sim load 90"
+  ],
+  "review": "HPA 按 ceil(当前副本 × 当前 CPU / 目标 CPU) 计算目标；教学模型不含稳定窗口。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 170,
+    "achievement": "chapter-7-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "根据指标自动改变副本数的控制器缩写是什么？",
+  "knowledgeAnswer": "HPA"
+}

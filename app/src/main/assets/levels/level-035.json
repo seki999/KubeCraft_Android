@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "id": 35,
+  "chapterId": 7,
+  "title": "有边界的弹性",
+  "description": "容量规划需要同时考虑 HPA 上限和每节点可调度资源；maxReplicas 是教学中的硬上限。",
+  "prerequisites": [
+    34
+  ],
+  "knowledgeIds": [
+    "k035"
+  ],
+  "story": "流量为 100%，让 HPA 在最多六份的边界内稳定运行。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "流量为 100%，让 HPA 在最多六份的边界内稳定运行。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "容量规划需要同时考虑 HPA 上限和每节点可调度资源；maxReplicas 是教学中的硬上限。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026035,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "hpa",
+      "target": "web",
+      "value": 6,
+      "text": "达到六个 Ready 副本",
+      "expected": ""
+    },
+    {
+      "type": "load",
+      "target": "",
+      "value": 100,
+      "text": "维持模拟高负载",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl autoscale deployment web --min=2 --max=6 --cpu-percent=50",
+    "sim load 100"
+  ],
+  "review": "容量规划需要同时考虑 HPA 上限和每节点可调度资源；maxReplicas 是教学中的硬上限。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 170,
+    "achievement": "chapter-7-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "HPA 限制最大副本数的配置叫什么？",
+  "knowledgeAnswer": "maxReplicas"
+}

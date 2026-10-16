@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": 3,
+  "chapterId": 1,
+  "title": "拥挤的站台",
+  "description": "Node 实践课程",
+  "prerequisites": [
+    2
+  ],
+  "knowledgeIds": [
+    "k003"
+  ],
+  "story": "K8-Bot 已提交 hello，但没有可调度节点。阅读 FailedScheduling，再提供 Worker。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "K8-Bot 已提交 hello，但没有可调度节点。阅读 FailedScheduling，再提供 Worker。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Pending 是状态，FailedScheduling Events 说明原因。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #003：为 Pending 的 hello 找到 Ready 节点"
+    }
+  ],
+  "simulation": {
+    "seed": 2026003,
+    "initialState": {
+      "pods": [
+        {
+          "name": "hello"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "text": "为 Pending 的 hello 找到 Ready 节点",
+      "value": 1
+    }
+  ],
+  "hints": [
+    "kubectl create node worker-1",
+    "推进 tick 等待 Ready"
+  ],
+  "review": "Pending 是状态，FailedScheduling Events 说明原因。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 110,
+    "achievement": "chapter-1-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "资源或节点不满足时会出现什么调度事件？",
+  "knowledgeAnswer": "FailedScheduling"
+}

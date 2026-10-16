@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": 45,
+  "chapterId": 9,
+  "title": "先计划，再供应",
+  "description": "Terraform 教学计划仅描述本地模拟 Worker，不执行 HCL、provider、远端状态或任何真实资源创建。",
+  "prerequisites": [
+    44
+  ],
+  "knowledgeIds": [
+    "k045"
+  ],
+  "story": "web 等待节点。先查看东京两 Worker 的 Terraform 计划，再应用本地资源。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "web 等待节点。先查看东京两 Worker 的 Terraform 计划，再应用本地资源。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Terraform 教学计划仅描述本地模拟 Worker，不执行 HCL、provider、远端状态或任何真实资源创建。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026045,
+    "initialState": {
+      "deployments": [
+        {
+          "name": "web"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "plan",
+      "target": "",
+      "value": 2,
+      "text": "东京两 Worker 计划已应用",
+      "expected": "ap-tokyo-1"
+    },
+    {
+      "type": "readyPods",
+      "target": "web",
+      "value": 1,
+      "text": "新容量承载 web",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "terraform plan --region=ap-tokyo-1 --workers=2",
+    "terraform apply"
+  ],
+  "review": "Terraform 教学计划仅描述本地模拟 Worker，不执行 HCL、provider、远端状态或任何真实资源创建。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 190,
+    "achievement": "chapter-9-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Terraform 在 apply 之前用于审阅变更的命令是什么？",
+  "knowledgeAnswer": "plan"
+}

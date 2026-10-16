@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": 43,
+  "chapterId": 9,
+  "title": "打包应用工坊",
+  "description": "Helm 教学子集只渲染内置 web-chart 的 Deployment 副本参数，不读取真实 Chart 或运行模板语言。",
+  "prerequisites": [
+    42
+  ],
+  "knowledgeIds": [
+    "k043"
+  ],
+  "story": "使用内置 web-chart 安装名为 portal 的 Release。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "使用内置 web-chart 安装名为 portal 的 Release。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Helm 教学子集只渲染内置 web-chart 的 Deployment 副本参数，不读取真实 Chart 或运行模板语言。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026043,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "release",
+      "target": "portal",
+      "value": 2,
+      "text": "portal Release 与两副本一致",
+      "expected": "1"
+    }
+  ],
+  "hints": [
+    "helm install portal web-chart --replicas=2"
+  ],
+  "review": "Helm 教学子集只渲染内置 web-chart 的 Deployment 副本参数，不读取真实 Chart 或运行模板语言。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 190,
+    "achievement": "chapter-9-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "使用 Chart 和 Release 打包部署的工具叫什么？",
+  "knowledgeAnswer": "Helm"
+}

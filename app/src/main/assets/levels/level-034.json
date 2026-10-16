@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 34,
+  "chapterId": 7,
+  "title": "容量不是无限的",
+  "description": "HPA/副本控制器不能凭空创造节点容量。节点扩展与 Pod 扩容是不同的动作。",
+  "prerequisites": [
+    33
+  ],
+  "knowledgeIds": [
+    "k034"
+  ],
+  "story": "目标为十份副本，现有 Worker 只能容纳八份。扩容工作节点。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "目标为十份副本，现有 Worker 只能容纳八份。扩容工作节点。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "HPA/副本控制器不能凭空创造节点容量。节点扩展与 Pod 扩容是不同的动作。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026034,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 10
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "readyPods",
+      "target": "web",
+      "value": 10,
+      "text": "十份副本全部 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl create node worker-2"
+  ],
+  "review": "HPA/副本控制器不能凭空创造节点容量。节点扩展与 Pod 扩容是不同的动作。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 170,
+    "achievement": "chapter-7-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "增加 Pod 副本前必须考虑哪类对象的计算容量？",
+  "knowledgeAnswer": "Node"
+}

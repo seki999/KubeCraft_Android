@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "id": 24,
+  "chapterId": 5,
+  "title": "等待供应的磁盘",
+  "description": "静态 PV 按容量绑定 PVC，一块 PV 只绑定一个 Claim；尚不模拟 StorageClass、访问模式与动态供应。",
+  "prerequisites": [
+    23
+  ],
+  "knowledgeIds": [
+    "k024"
+  ],
+  "story": "PVC data 一直 Pending，导致 hello 无法启动。提供足够容量的 PV 并观察绑定。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "PVC data 一直 Pending，导致 hello 无法启动。提供足够容量的 PV 并观察绑定。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "静态 PV 按容量绑定 PVC，一块 PV 只绑定一个 Claim；尚不模拟 StorageClass、访问模式与动态供应。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026024,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "claim": "data"
+        }
+      ],
+      "claims": [
+        {
+          "name": "data",
+          "capacity": 512
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "boundClaim",
+      "target": "data",
+      "value": 1,
+      "text": "data 已绑定 PV",
+      "expected": ""
+    },
+    {
+      "type": "readyPods",
+      "target": "hello",
+      "value": 1,
+      "text": "等待卷的 hello 恢复 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim pv disk --size=1024"
+  ],
+  "review": "静态 PV 按容量绑定 PVC，一块 PV 只绑定一个 Claim；尚不模拟 StorageClass、访问模式与动态供应。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 150,
+    "achievement": "chapter-5-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "应用申请持久存储的声明对象缩写是什么？",
+  "knowledgeAnswer": "PVC"
+}

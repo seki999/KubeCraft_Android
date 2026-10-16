@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": 29,
+  "chapterId": 6,
+  "title": "寻找正确的分区",
+  "description": "nodeSelector 必须全部匹配节点标签；资源充足也不能绕过标签条件。",
+  "prerequisites": [
+    28
+  ],
+  "knowledgeIds": [
+    "k029"
+  ],
+  "story": "hello 指定 zone=b，但只有 zone=a 节点。修正选择器。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 指定 zone=b，但只有 zone=a 节点。修正选择器。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "nodeSelector 必须全部匹配节点标签；资源充足也不能绕过标签条件。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026029,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "nodeSelector": {
+            "zone": "b"
+          }
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "selected",
+      "target": "hello",
+      "value": 1,
+      "text": "hello 选择 zone=a 并 Ready",
+      "expected": "a"
+    }
+  ],
+  "hints": [
+    "sim selector hello zone=a"
+  ],
+  "review": "nodeSelector 必须全部匹配节点标签；资源充足也不能绕过标签条件。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 160,
+    "achievement": "chapter-6-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "根据节点标签限制调度的字段是什么？",
+  "knowledgeAnswer": "nodeSelector"
+}

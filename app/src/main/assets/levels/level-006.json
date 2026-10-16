@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": 6,
+  "chapterId": 2,
+  "title": "副本工坊",
+  "description": "Deployment 实践课程",
+  "prerequisites": [
+    5
+  ],
+  "knowledgeIds": [
+    "k006"
+  ],
+  "story": "需求增加到两份。扩容 web，并在拓扑观察 ReplicaSet 与两个 Ready Pod。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "需求增加到两份。扩容 web，并在拓扑观察 ReplicaSet 与两个 Ready Pod。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "ReplicaSet 维护期望副本；扩容需要足够 requests 容量。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #006：web 期望和就绪副本均为 2"
+    }
+  ],
+  "simulation": {
+    "seed": 2026006,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 2,
+      "text": "web 期望和就绪副本均为 2"
+    }
+  ],
+  "hints": [
+    "kubectl scale deployment/web --replicas=2"
+  ],
+  "review": "ReplicaSet 维护期望副本；扩容需要足够 requests 容量。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 120,
+    "achievement": "chapter-2-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Deployment 中哪个字段表达期望副本数？",
+  "knowledgeAnswer": "replicas"
+}

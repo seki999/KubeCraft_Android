@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 28,
+  "chapterId": 6,
+  "title": "紧急订单优先",
+  "description": "调度队列按 priority 排序，此模型不支持抢占已运行的低优先级 Pod。",
+  "prerequisites": [
+    27
+  ],
+  "knowledgeIds": [
+    "k028"
+  ],
+  "story": "urgent 和 batch 都需要整座节点。先提高 urgent 优先级，再建设仅够一个 Pod 的 Worker。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "urgent 和 batch 都需要整座节点。先提高 urgent 优先级，再建设仅够一个 Pod 的 Worker。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "调度队列按 priority 排序，此模型不支持抢占已运行的低优先级 Pod。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026028,
+    "initialState": {
+      "pods": [
+        {
+          "name": "batch",
+          "cpu": 2000
+        },
+        {
+          "name": "urgent",
+          "cpu": 2000
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "priority",
+      "target": "urgent",
+      "value": 100,
+      "text": "urgent 优先运行，batch 等待容量",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim priority urgent 100",
+    "kubectl create node worker-1"
+  ],
+  "review": "调度队列按 priority 排序，此模型不支持抢占已运行的低优先级 Pod。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 160,
+    "achievement": "chapter-6-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "决定等待队列先后顺序的属性是什么？",
+  "knowledgeAnswer": "priority"
+}

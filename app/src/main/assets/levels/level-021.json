@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 21,
+  "chapterId": 5,
+  "title": "把配置移出镜像",
+  "description": "ConfigMap 存非机密配置。本模拟将挂载关系保存在 Pod 中，不实现文件系统与热更新。",
+  "prerequisites": [
+    20
+  ],
+  "knowledgeIds": [
+    "k021"
+  ],
+  "story": "hello 需要可独立管理的 mode 配置。创建 ConfigMap 并挂载。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 需要可独立管理的 mode 配置。创建 ConfigMap 并挂载。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "ConfigMap 存非机密配置。本模拟将挂载关系保存在 Pod 中，不实现文件系统与热更新。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026021,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "configMounted",
+      "target": "hello",
+      "value": 1,
+      "text": "hello 使用 settings ConfigMap",
+      "expected": "settings"
+    }
+  ],
+  "hints": [
+    "kubectl create configmap settings --from-literal=mode=prod",
+    "sim mount hello configmap settings"
+  ],
+  "review": "ConfigMap 存非机密配置。本模拟将挂载关系保存在 Pod 中，不实现文件系统与热更新。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 150,
+    "achievement": "chapter-5-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "存储非机密配置的对象叫什么？",
+  "knowledgeAnswer": "ConfigMap"
+}

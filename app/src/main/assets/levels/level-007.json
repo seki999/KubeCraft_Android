@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "id": 7,
+  "chapterId": 2,
+  "title": "自愈警报",
+  "description": "ReplicaSet 实践课程",
+  "prerequisites": [
+    6
+  ],
+  "knowledgeIds": [
+    "k007"
+  ],
+  "story": "删除 web 的一个 Pod。K8-Bot 会解释为什么控制器补建，而独立 Pod 不会复活。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "删除 web 的一个 Pod。K8-Bot 会解释为什么控制器补建，而独立 Pod 不会复活。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "删除受管 Pod 不会删除 Deployment 的期望副本。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #007：删除一个实际存在的 Pod"
+    }
+  ],
+  "simulation": {
+    "seed": 2026007,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "event",
+      "target": "Deleted",
+      "text": "删除一个实际存在的 Pod",
+      "value": 1
+    },
+    {
+      "type": "readyPods",
+      "target": "web",
+      "value": 2,
+      "text": "控制器恢复两个 Ready 副本"
+    }
+  ],
+  "hints": [
+    "kubectl get pods",
+    "kubectl delete pod 实际Pod名称",
+    "推进 tick 等待补建"
+  ],
+  "review": "删除受管 Pod 不会删除 Deployment 的期望副本。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 120,
+    "achievement": "chapter-2-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Deployment 通过哪类控制器维护 Pod 副本？",
+  "knowledgeAnswer": "ReplicaSet"
+}

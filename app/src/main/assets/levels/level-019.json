@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "id": 19,
+  "chapterId": 4,
+  "title": "城市的电话簿",
+  "description": "Service FQDN 形如 service.namespace.svc.cluster.local，名称解析在本模拟中由对象查找实现。",
+  "prerequisites": [
+    18
+  ],
+  "knowledgeIds": [
+    "k019"
+  ],
+  "story": "通过完整的集群 DNS 名称访问 team 中的 Service。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "通过完整的集群 DNS 名称访问 team 中的 Service。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Service FQDN 形如 service.namespace.svc.cluster.local，名称解析在本模拟中由对象查找实现。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026019,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "namespaces": [
+        {
+          "name": "default"
+        },
+        {
+          "name": "team"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2,
+          "namespace": "team"
+        }
+      ],
+      "services": [
+        {
+          "name": "web",
+          "selector": {
+            "app": "web"
+          },
+          "namespace": "team",
+          "type": "ClusterIP"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "route",
+      "target": "web.team.svc.cluster.local",
+      "value": 1,
+      "text": "访问 team Service 的 DNS 路由",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim connect web --namespace=team"
+  ],
+  "review": "Service FQDN 形如 service.namespace.svc.cluster.local，名称解析在本模拟中由对象查找实现。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 140,
+    "achievement": "chapter-4-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Service 名称发现通常使用哪种系统？",
+  "knowledgeAnswer": "DNS"
+}

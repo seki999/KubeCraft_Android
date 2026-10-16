@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 26,
+  "chapterId": 6,
+  "title": "过大的资源订单",
+  "description": "Scheduler 使用 requests 预留容量。本教学允许修改未调度 Pod，真实环境通常需重建 Pod 或更新控制器模板。",
+  "prerequisites": [
+    25
+  ],
+  "knowledgeIds": [
+    "k026"
+  ],
+  "story": "hello 请求 3000m，节点只有 2000m。修改未调度 Pod 的 requests 为 250m。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 请求 3000m，节点只有 2000m。修改未调度 Pod 的 requests 为 250m。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Scheduler 使用 requests 预留容量。本教学允许修改未调度 Pod，真实环境通常需重建 Pod 或更新控制器模板。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026026,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "cpu": 3000
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "requests",
+      "target": "hello",
+      "value": 250,
+      "text": "hello 以 250m requests 调度并 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim resources hello --cpu=250 --memory=128 --limit=512"
+  ],
+  "review": "Scheduler 使用 requests 预留容量。本教学允许修改未调度 Pod，真实环境通常需重建 Pod 或更新控制器模板。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 160,
+    "achievement": "chapter-6-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "调度预留 CPU/内存依据的字段叫什么？",
+  "knowledgeAnswer": "requests"
+}

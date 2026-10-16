@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": 44,
+  "chapterId": 9,
+  "title": "升级应用包",
+  "description": "Release revision 表示一次参数发布，Deployment 控制器落实期望副本。此处未实现 Helm 回滚和依赖包。",
+  "prerequisites": [
+    43
+  ],
+  "knowledgeIds": [
+    "k044"
+  ],
+  "story": "portal Release 已经部署一份。升级包参数到三份，确认 Release revision 增长。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "portal Release 已经部署一份。升级包参数到三份，确认 Release revision 增长。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Release revision 表示一次参数发布，Deployment 控制器落实期望副本。此处未实现 Helm 回滚和依赖包。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026044,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "portal",
+          "replicas": 1
+        }
+      ],
+      "advanced": {
+        "releases": [
+          {
+            "name": "portal",
+            "replicas": 1,
+            "revision": 1
+          }
+        ]
+      }
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "release",
+      "target": "portal",
+      "value": 3,
+      "text": "Release revision 至少 2 且三副本 Ready",
+      "expected": "2"
+    }
+  ],
+  "hints": [
+    "helm upgrade portal web-chart --replicas=3"
+  ],
+  "review": "Release revision 表示一次参数发布，Deployment 控制器落实期望副本。此处未实现 Helm 回滚和依赖包。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 190,
+    "achievement": "chapter-9-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Release 每次升级增加的版本属性是什么？",
+  "knowledgeAnswer": "revision"
+}

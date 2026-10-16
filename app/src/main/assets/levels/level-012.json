@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 12,
+  "chapterId": 3,
+  "title": "稳定的访问入口",
+  "description": "Service 使用标签选择 Pod，端点随就绪状态改变，不绑定某一个固定 Pod。",
+  "prerequisites": [
+    11
+  ],
+  "knowledgeIds": [
+    "k012"
+  ],
+  "story": "web 副本会替换，Leo 需要稳定 Service 名称。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "web 副本会替换，Leo 需要稳定 Service 名称。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Service 使用标签选择 Pod，端点随就绪状态改变，不绑定某一个固定 Pod。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026012,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "endpoints",
+      "target": "web",
+      "value": 2,
+      "text": "Service 具有两个 Ready 端点",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl expose deployment web"
+  ],
+  "review": "Service 使用标签选择 Pod，端点随就绪状态改变，不绑定某一个固定 Pod。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 130,
+    "achievement": "chapter-3-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Service 通过哪个字段选择 Pod？",
+  "knowledgeAnswer": "selector"
+}

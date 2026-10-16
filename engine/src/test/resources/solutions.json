@@ -1,0 +1,150 @@
+{
+  "11": [
+    "sim ping hello"
+  ],
+  "12": [
+    "kubectl expose deployment web"
+  ],
+  "13": [
+    "kubectl expose deployment web --type=NodePort"
+  ],
+  "14": [
+    "kubectl expose deployment web --type=LoadBalancer"
+  ],
+  "15": [
+    "sim ingress gateway --host=web.local --service=web",
+    "sim request web.local"
+  ],
+  "16": [
+    "kubectl create namespace team",
+    "kubectl create deployment web --image=nginx:1 --namespace=team"
+  ],
+  "17": [
+    "kubectl label pod hello app=web"
+  ],
+  "18": [
+    "sim service web --app=web"
+  ],
+  "19": [
+    "sim connect web --namespace=team"
+  ],
+  "20": [
+    "sim service web --app=web --namespace=payments",
+    "sim connect web --namespace=payments"
+  ],
+  "21": [
+    "kubectl create configmap settings --from-literal=mode=prod",
+    "sim mount hello configmap settings"
+  ],
+  "22": [
+    "kubectl create secret generic credentials --from-literal=token=demo",
+    "sim mount hello secret credentials"
+  ],
+  "23": [
+    "sim mount hello pvc data",
+    "sim write data hello"
+  ],
+  "24": [
+    "sim pv disk --size=1024"
+  ],
+  "25": [
+    "sim statefulset db --replicas=1 --claim=data"
+  ],
+  "26": [
+    "sim resources hello --cpu=250 --memory=128 --limit=512"
+  ],
+  "27": [
+    "kubectl logs hello",
+    "sim memory hello 64"
+  ],
+  "28": [
+    "sim priority urgent 100",
+    "kubectl create node worker-1"
+  ],
+  "29": [
+    "sim selector hello zone=a"
+  ],
+  "30": [
+    "kubectl get events",
+    "kubectl create node worker-2"
+  ],
+  "31": [
+    "kubectl scale deployment/web --replicas=5"
+  ],
+  "32": [
+    "kubectl autoscale deployment web --min=1 --max=5 --cpu-percent=60",
+    "sim load 90"
+  ],
+  "33": [
+    "sim load 15"
+  ],
+  "34": [
+    "kubectl create node worker-2"
+  ],
+  "35": [
+    "kubectl autoscale deployment web --min=2 --max=6 --cpu-percent=50",
+    "sim load 100"
+  ],
+  "36": [
+    "kubectl create deployment web --image=nginx:1",
+    "kubectl expose deployment web"
+  ],
+  "37": [
+    "kubectl get events",
+    "kubectl create node worker-1"
+  ],
+  "38": [
+    "kubectl logs hello",
+    "sim memory hello 100"
+  ],
+  "39": [
+    "sim probe hello readiness",
+    "sim health hello true"
+  ],
+  "40": [
+    "sim probe hello liveness"
+  ],
+  "41": [
+    "@yaml"
+  ],
+  "42": [
+    "@yaml3"
+  ],
+  "43": [
+    "helm install portal web-chart --replicas=2"
+  ],
+  "44": [
+    "helm upgrade portal web-chart --replicas=3"
+  ],
+  "45": [
+    "terraform plan --region=ap-tokyo-1 --workers=2",
+    "terraform apply"
+  ],
+  "46": [
+    "sim oci-region ap-tokyo-1"
+  ],
+  "47": [
+    "sim oke-create"
+  ],
+  "48": [
+    "sim oke-pool 2"
+  ],
+  "49": [
+    "sim oke-pool 2",
+    "kubectl create deployment web --image=nginx:1",
+    "kubectl scale deployment/web --replicas=3",
+    "kubectl expose deployment web --type=LoadBalancer",
+    "sim ingress gateway --host=web.local --service=web",
+    "sim request web.local"
+  ],
+  "50": [
+    "kubectl create configmap settings --from-literal=mode=prod",
+    "sim mount vault configmap settings",
+    "sim pv disk --size=1024",
+    "sim pvc data --size=512",
+    "sim mount vault pvc data",
+    "sim write data graduate",
+    "kubectl autoscale deployment web --min=2 --max=5 --cpu-percent=60",
+    "sim load 90"
+  ]
+}

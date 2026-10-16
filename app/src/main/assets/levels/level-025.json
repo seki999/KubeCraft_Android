@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": 25,
+  "chapterId": 5,
+  "title": "有名字的数据库",
+  "description": "StatefulSet 使用稳定 Pod 序号，删除后按同一名称恢复。教学子集共享一个预建 Claim，未实现逐副本 volumeClaimTemplates。",
+  "prerequisites": [
+    24
+  ],
+  "knowledgeIds": [
+    "k025"
+  ],
+  "story": "建立保留稳定序号 db-0 的 StatefulSet，数据声明须先 Bound。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "建立保留稳定序号 db-0 的 StatefulSet，数据声明须先 Bound。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "StatefulSet 使用稳定 Pod 序号，删除后按同一名称恢复。教学子集共享一个预建 Claim，未实现逐副本 volumeClaimTemplates。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026025,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "volumes": [
+        {
+          "name": "disk",
+          "capacity": 1024
+        }
+      ],
+      "claims": [
+        {
+          "name": "data",
+          "capacity": 512
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "stateful",
+      "target": "db",
+      "value": 1,
+      "text": "db-0 Ready 且挂载持久卷",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim statefulset db --replicas=1 --claim=data"
+  ],
+  "review": "StatefulSet 使用稳定 Pod 序号，删除后按同一名称恢复。教学子集共享一个预建 Claim，未实现逐副本 volumeClaimTemplates。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 150,
+    "achievement": "chapter-5-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "用于稳定序号与身份的工作负载是什么？",
+  "knowledgeAnswer": "StatefulSet"
+}

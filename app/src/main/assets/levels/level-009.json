@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "id": 9,
+  "chapterId": 2,
+  "title": "不停机换代",
+  "description": "Rolling Update 实践课程",
+  "prerequisites": [
+    8
+  ],
+  "knowledgeIds": [
+    "k009"
+  ],
+  "story": "Maya 发布 nginx:2。观察新旧 Revision 逐步交接，直到所有副本使用新镜像。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "Maya 发布 nginx:2。观察新旧 Revision 逐步交接，直到所有副本使用新镜像。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "滚动更新先创建就绪的新副本，再替换旧副本。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #009：web 全部 Ready 且运行 nginx:2"
+    }
+  ],
+  "simulation": {
+    "seed": 2026009,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "image",
+      "target": "web",
+      "value": 2,
+      "text": "web 全部 Ready 且运行 nginx:2"
+    }
+  ],
+  "hints": [
+    "kubectl set image deployment/web web=nginx:2",
+    "反复推进 tick，等待滚动更新完成"
+  ],
+  "review": "滚动更新先创建就绪的新副本，再替换旧副本。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 120,
+    "achievement": "chapter-2-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "新旧模板在本模型中通过哪个版本字段区分？",
+  "knowledgeAnswer": "revision"
+}

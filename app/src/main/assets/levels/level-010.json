@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": 10,
+  "chapterId": 2,
+  "title": "回到可靠版本",
+  "description": "Rollback 实践课程",
+  "prerequisites": [
+    9
+  ],
+  "knowledgeIds": [
+    "k010"
+  ],
+  "story": "nginx:2 发布有风险。用 rollout undo 恢复历史 nginx:1，确认旧版副本全部就绪。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "nginx:2 发布有风险。用 rollout undo 恢复历史 nginx:1，确认旧版副本全部就绪。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "回滚恢复历史 Pod 模板，仍需要完成一次滚动替换。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "任务 #010：执行真实历史版本回滚"
+    }
+  ],
+  "simulation": {
+    "seed": 2026010,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2,
+          "image": "nginx:2",
+          "revision": 2,
+          "history": [
+            "nginx:1"
+          ]
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "event",
+      "target": "Rollback",
+      "text": "执行真实历史版本回滚",
+      "value": 1
+    },
+    {
+      "type": "image",
+      "target": "web",
+      "value": 1,
+      "text": "所有 web Pod 恢复 nginx:1"
+    }
+  ],
+  "hints": [
+    "kubectl rollout undo deployment/web",
+    "推进 tick 等待交接"
+  ],
+  "review": "回滚恢复历史 Pod 模板，仍需要完成一次滚动替换。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 6
+  },
+  "rewards": {
+    "xp": 120,
+    "achievement": "chapter-2-lesson-5"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "kubectl 中用于恢复上次模板的两个子命令是什么？",
+  "knowledgeAnswer": "rollout undo"
+}

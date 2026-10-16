@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 31,
+  "chapterId": 7,
+  "title": "迎接流量高峰",
+  "description": "手动扩容改变期望副本数，由控制器和调度器最终实现。",
+  "prerequisites": [
+    30
+  ],
+  "knowledgeIds": [
+    "k031"
+  ],
+  "story": "将 web 从两份扩展到五份。检查 requests 是否仍能容纳。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "将 web 从两份扩展到五份。检查 requests 是否仍能容纳。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "手动扩容改变期望副本数，由控制器和调度器最终实现。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026031,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 5,
+      "text": "五个 web 副本 Ready",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl scale deployment/web --replicas=5"
+  ],
+  "review": "手动扩容改变期望副本数，由控制器和调度器最终实现。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 170,
+    "achievement": "chapter-7-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "手动扩容修改哪个字段？",
+  "knowledgeAnswer": "replicas"
+}

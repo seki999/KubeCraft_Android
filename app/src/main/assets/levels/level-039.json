@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "id": 39,
+  "chapterId": 8,
+  "title": "健康不等于就绪",
+  "description": "Readiness 失败会停止向 Pod 路由，不负责重启。探针与业务健康在本模拟中是显式状态。",
+  "prerequisites": [
+    38
+  ],
+  "knowledgeIds": [
+    "k039"
+  ],
+  "story": "hello 不健康但还没有 readiness probe。安装探针，使服务撤出端点，再修复健康。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 不健康但还没有 readiness probe。安装探针，使服务撤出端点，再修复健康。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Readiness 失败会停止向 Pod 路由，不负责重启。探针与业务健康在本模拟中是显式状态。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026039,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "healthy": false
+        }
+      ],
+      "services": [
+        {
+          "name": "web",
+          "selector": {
+            "app": "web"
+          },
+          "namespace": "default",
+          "type": "ClusterIP"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "probe",
+      "target": "hello",
+      "value": 1,
+      "text": "readiness probe 已配置且 hello 健康 Ready",
+      "expected": "readiness"
+    },
+    {
+      "type": "endpoints",
+      "target": "web",
+      "value": 1,
+      "text": "健康修复后恢复端点",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "sim probe hello readiness",
+    "sim health hello true"
+  ],
+  "review": "Readiness 失败会停止向 Pod 路由，不负责重启。探针与业务健康在本模拟中是显式状态。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 180,
+    "achievement": "chapter-8-lesson-4"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "哪类 probe 失败会撤下 Service 端点？",
+  "knowledgeAnswer": "readiness"
+}

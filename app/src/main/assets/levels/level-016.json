@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": 16,
+  "chapterId": 4,
+  "title": "新的命名空间",
+  "description": "Namespace 隔离对象名称与 Service 发现范围；它本身不提供网络隔离。",
+  "prerequisites": [
+    15
+  ],
+  "knowledgeIds": [
+    "k016"
+  ],
+  "story": "为 team 团队划分逻辑空间并在其中部署应用。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "为 team 团队划分逻辑空间并在其中部署应用。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Namespace 隔离对象名称与 Service 发现范围；它本身不提供网络隔离。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026016,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "namespace",
+      "target": "team",
+      "value": 1,
+      "text": "创建 team Namespace",
+      "expected": ""
+    },
+    {
+      "type": "readyPods",
+      "target": "web",
+      "value": 1,
+      "text": "team 应用 Ready",
+      "expected": "team"
+    }
+  ],
+  "hints": [
+    "kubectl create namespace team",
+    "kubectl create deployment web --image=nginx:1 --namespace=team"
+  ],
+  "review": "Namespace 隔离对象名称与 Service 发现范围；它本身不提供网络隔离。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 4
+  },
+  "rewards": {
+    "xp": 140,
+    "achievement": "chapter-4-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "用于划分对象逻辑作用域的对象是什么？",
+  "knowledgeAnswer": "Namespace"
+}

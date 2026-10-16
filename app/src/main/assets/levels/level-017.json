@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "id": 17,
+  "chapterId": 4,
+  "title": "给信使贴标签",
+  "description": "Labels 是对象上的键值对，Service selector 通过这些标签动态发现 Pod。",
+  "prerequisites": [
+    16
+  ],
+  "knowledgeIds": [
+    "k017"
+  ],
+  "story": "hello 的标签错误，Service 没有端点。修复标签而不是重建服务。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "hello 的标签错误，Service 没有端点。修复标签而不是重建服务。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "Labels 是对象上的键值对，Service selector 通过这些标签动态发现 Pod。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026017,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "pods": [
+        {
+          "name": "hello",
+          "labels": {
+            "app": "wrong"
+          }
+        }
+      ],
+      "services": [
+        {
+          "name": "web",
+          "selector": {
+            "app": "web"
+          },
+          "namespace": "default",
+          "type": "ClusterIP"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "endpoints",
+      "target": "web",
+      "value": 1,
+      "text": "修复 hello 标签后 Service 出现端点",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "kubectl label pod hello app=web"
+  ],
+  "review": "Labels 是对象上的键值对，Service selector 通过这些标签动态发现 Pod。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 140,
+    "achievement": "chapter-4-lesson-2"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "Pod 上供选择器匹配的键值对叫什么？",
+  "knowledgeAnswer": "Labels"
+}

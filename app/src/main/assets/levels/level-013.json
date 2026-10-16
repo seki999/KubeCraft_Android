@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "id": 13,
+  "chapterId": 3,
+  "title": "街区大门 NodePort",
+  "description": "NodePort 在节点端口转发到 Service；此模拟只表示类型与端点，不监听端口。",
+  "prerequisites": [
+    12
+  ],
+  "knowledgeIds": [
+    "k013"
+  ],
+  "story": "为已有应用建立 NodePort 教学入口，确认仍由 Ready 端点承载请求。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "为已有应用建立 NodePort 教学入口，确认仍由 Ready 端点承载请求。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "NodePort 在节点端口转发到 Service；此模拟只表示类型与端点，不监听端口。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026013,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ],
+      "deployments": [
+        {
+          "name": "web",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "serviceType",
+      "target": "web",
+      "value": 1,
+      "text": "建立有端点的 NodePort",
+      "expected": "NodePort"
+    }
+  ],
+  "hints": [
+    "kubectl expose deployment web --type=NodePort"
+  ],
+  "review": "NodePort 在节点端口转发到 Service；此模拟只表示类型与端点，不监听端口。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 130,
+    "achievement": "chapter-3-lesson-3"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "哪种 Service 类型通过节点端口暴露？",
+  "knowledgeAnswer": "NodePort"
+}

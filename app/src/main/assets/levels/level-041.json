@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": 41,
+  "chapterId": 9,
+  "title": "第一份声明式蓝图",
+  "description": "YAML 是声明式对象输入。编辑器只接受公开示例结构，非完整 YAML/Kubernetes API 实现。",
+  "prerequisites": [
+    40
+  ],
+  "knowledgeIds": [
+    "k041"
+  ],
+  "story": "在 YAML 编辑器应用默认 web 两副本示例，等待控制器实现期望状态。",
+  "dialogues": [
+    {
+      "speaker": "Leo",
+      "text": "在 YAML 编辑器应用默认 web 两副本示例，等待控制器实现期望状态。"
+    },
+    {
+      "speaker": "Maya",
+      "text": "YAML 是声明式对象输入。编辑器只接受公开示例结构，非完整 YAML/Kubernetes API 实现。"
+    },
+    {
+      "speaker": "K8-Bot",
+      "text": "请先检查当前状态，然后依次执行目标；sim 命令仅用于离线教学。"
+    }
+  ],
+  "simulation": {
+    "seed": 2026041,
+    "initialState": {
+      "nodes": [
+        {
+          "name": "worker-1"
+        }
+      ]
+    }
+  },
+  "allowedActions": [
+    "AddNode",
+    "CreatePod",
+    "Deploy",
+    "Scale",
+    "DeletePod",
+    "UpdateImage",
+    "Rollback",
+    "Expose",
+    "SetLoad",
+    "Autoscale",
+    "Advanced",
+    "Tick"
+  ],
+  "objectives": [
+    {
+      "type": "replicas",
+      "target": "web",
+      "value": 2,
+      "text": "通过 Deployment 清单创建两个 Ready 副本",
+      "expected": ""
+    }
+  ],
+  "hints": [
+    "打开 YAML 编辑器，应用默认示例；随后推进 tick 等待两个 Pod Ready。"
+  ],
+  "review": "YAML 是声明式对象输入。编辑器只接受公开示例结构，非完整 YAML/Kubernetes API 实现。",
+  "score": {
+    "completion": 60,
+    "resource": 15,
+    "operations": 10,
+    "knowledge": 10,
+    "noHints": 5,
+    "idealActions": 3
+  },
+  "rewards": {
+    "xp": 190,
+    "achievement": "chapter-9-lesson-1"
+  },
+  "implemented": true,
+  "knowledgeQuestion": "常用来书写 Kubernetes 声明清单的格式是什么？",
+  "knowledgeAnswer": "YAML"
+}
