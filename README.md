@@ -4,6 +4,8 @@ Kotlin / Jetpack Compose Android 离线 Kubernetes 教育游戏。包名 `com.se
 
 已实现 10 章 50 关独立 JSON 场景、自由城市、模拟 kubectl、受控 YAML、拓扑、技术图鉴、Room 存档、DataStore 设置、评分与经验奖励。所有关卡通过实际集群状态判断完成；高级功能是公开边界的教学子集。**尚未完成真机/平板体验、升级安装、性能和正式签名验收**，逐关状态见 [IMPLEMENTATION_STATUS](docs/IMPLEMENTATION_STATUS.md)。
 
+**新玩家推荐**：[50 关完整通关秘籍（逐关命令、目标、知识问答与卡关排查）](docs/COMPLETE_WALKTHROUGH.md)。
+
 ## 构建
 
 需要 JDK 17、Android SDK Platform 35、SDK Build Tools、网络可用的首次依赖下载。设置 `ANDROID_HOME`（或在不提交的 `local.properties` 中配置 sdk.dir）。仓库包含 Gradle Wrapper，无需全局 Gradle。
