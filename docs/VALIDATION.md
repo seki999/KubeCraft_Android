@@ -22,11 +22,17 @@
 
 | 文件 | 字节 | SHA-256 |
 |---|---|---|
-| `app/build/outputs/apk/debug/app-debug.apk` | 27571440 | `d56972699445e4bfb5440e7922f4de9ada8e51663fc6b79e56604d8c4f3e60a5` |
-| `app/build/outputs/apk/release/app-release-unsigned.apk` | 20627439 | `a52eca125fe21401d4169de2cfaa45da7f85f4c6e04012956cd79bb9a3729203` |
+| `app/build/outputs/apk/debug/app-debug.apk` | 27278132 | `1fefae75d6cf1a73aab35f2515a77fbc6280ef2080bfdd28e3a438d36fcbcad8` |
+| `app/build/outputs/apk/release/app-release-unsigned.apk` | 20627439 | `31f9bad2915068df651d930c9bbde37069bc067fb5f3e8f5f5a0012d09fb42d7` |
 
 Debug 包使用开发签名，可安装体验；Release 未签名，正式分发前必须使用自己的发布密钥签名。两个产物均来自最后一次成功构建。
 
 ## 验证限制
 
 50 关回放证明当前内容通过实际引擎与命令状态转换可通关，不代表完整 Kubernetes 一致性或设备体验验收。关键简化规则和逐关限制在 SIMULATION_RULES.md / IMPLEMENTATION_STATUS.md 公开记录。
+
+## 0.1.1 更新验证
+
+默认浅色、动画开启、慢速开启、字体 140%；DataStore 已存偏好保留。任务、提示、复盘、拓扑、状态、图鉴和结算使用 Compose SelectionContainer 支持长按选择复制，输入框保留原生粘贴功能。
+
+`testDebugUnitTest`（2 项）、`assembleDebug`、`assembleRelease`、`assembleDebugAndroidTest` 全部成功；Debug 签名验证通过，APK 包版本为 0.1.1 / versionCode 2。引擎没有变更，未重复运行引擎测试。当前 adb 无连接设备，选择手柄、复制菜单与粘贴的设备交互尚未验收；前文 lintDebug 与 connectedDebugAndroidTest 的记录属于 0.1.0。表中 APK 哈希已更新为 0.1.1。

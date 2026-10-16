@@ -74,3 +74,7 @@ Release 使用自己的发布 keystore 通过 Android Studio “Generate Signed 
 - [实际验证记录](docs/VALIDATION.md)
 
 引擎测试报告：`engine/build/reports/tests/test/index.html`；App JVM 测试报告：`app/build/reports/tests/testDebugUnitTest/index.html`。设备测试已编写，不应把测试 APK 编译成功当作设备测试通过。
+
+## 0.1.1 交互更新
+
+任务、提示、复盘、图鉴、拓扑、状态与结算文本支持长按选择复制；答案、终端和 YAML 输入框使用系统复制/粘贴菜单。默认浅色主题、动画开启、慢速动画开启、字体 140%。只改变尚未保存的设置默认值，保留用户已有偏好。

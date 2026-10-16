@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.*
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,6 +40,7 @@ class MainActivity: ComponentActivity() {
  BackHandler(page != "首页") { page = "首页" }
  Scaffold(topBar = { TopAppBar(title = { Column { Text("KUBECRAFT",style = MaterialTheme.typography.titleLarge); Text("Kubernetes 云端帝国 · 离线实验室",style = MaterialTheme.typography.labelSmall) } },navigationIcon = { if(page != "首页") TextButton(onClick = { page = "首页" }) { Text("返回") } }) }, bottomBar = { if(page != "城市") NavigationBar { listOf("首页","课程","图鉴","设置").forEach { name -> NavigationBarItem(selected = page == name,onClick = { page = name },icon = { Text(when(name) { "首页" -> "⌂"; "课程" -> "◈"; "图鉴" -> "▤"; else -> "⚙" }) },label = { Text(name) }) } } }) { padding ->
  Surface(Modifier.fillMaxSize().padding(padding)) {
+ SelectionContainer {
  if(!ui.loaded) Box(Modifier.fillMaxSize(),contentAlignment = Alignment.Center) { Text(ui.error ?: "正在读取离线课程…") }
  else when(page) {
  "首页" -> Column(Modifier.verticalScroll(rememberScrollState()).padding(24.dp),verticalArrangement = Arrangement.spacedBy(18.dp)) {
@@ -65,7 +67,7 @@ class MainActivity: ComponentActivity() {
   Toggle("慢速动画",settings.slow) { vm.settings(settings.copy(slow = it)) }
   Text("字体大小 ${"%.0f".format(settings.fontScale*100)}%")
   Slider(value = settings.fontScale,onValueChange = { vm.settings(settings.copy(fontScale = it)) },valueRange = 0.85f..1.4f,steps = 10)
-  Text("版本 0.1.0 · Android 10+\n完全离线，无账号、无真实云资源费用。\n终端与 YAML 使用受控教学子集；Helm、Terraform、OCI、OKE 为离线教学模型。")
+  Text("版本 0.1.1 · Android 10+\n完全离线，无账号、无真实云资源费用。\n终端与 YAML 使用受控教学子集；Helm、Terraform、OCI、OKE 为离线教学模型。")
   ui.error?.let { Text(it,color = MaterialTheme.colorScheme.error) }
  }
  "城市" -> BoxWithConstraints(Modifier.fillMaxSize()) {
@@ -84,6 +86,7 @@ class MainActivity: ComponentActivity() {
  }
  }
  }
+ }
 }
 @Composable fun Toggle(label: String,value: Boolean,change: (Boolean)->Unit) { Row(Modifier.fillMaxWidth(),verticalAlignment = Alignment.CenterVertically) { Text(label,Modifier.weight(1f)); Switch(value,change) } }
 
@@ -93,6 +96,7 @@ class MainActivity: ComponentActivity() {
  if(ui.result != null && s.claimed && level != null) {
   androidx.compose.ui.window.Dialog(onDismissRequest = { vm.dismissResult() }) {
    Surface(shape = RoundedCornerShape(24.dp)) {
+    SelectionContainer {
     Column(Modifier.padding(24.dp).verticalScroll(rememberScrollState()),verticalArrangement = Arrangement.spacedBy(16.dp)) {
      Text("任务完成",style = MaterialTheme.typography.headlineMedium)
      val result = ui.result ?: 0
@@ -106,6 +110,7 @@ class MainActivity: ComponentActivity() {
      if(level.id < 50) Button(onClick = { vm.start(level.id+1) }) { Text("进入下一关") }
      OutlinedButton(onClick = { vm.dismissResult() }) { Text("返回城市") }
     }
+    }
    }
   }
  }
@@ -113,6 +118,7 @@ class MainActivity: ComponentActivity() {
  var command by rememberSaveable { mutableStateOf("") }; var yaml by rememberSaveable { mutableStateOf(Manifest.example) }
  val panelScroll = rememberScrollState()
  LaunchedEffect(tab,ui.output) { if(tab == "终端") { withFrameNanos { }; panelScroll.scrollTo(panelScroll.maxValue) } }
+ SelectionContainer {
  Column(modifier.imePadding().padding(horizontal = 12.dp)) {
   Row(Modifier.horizontalScroll(rememberScrollState())) { listOf("任务","终端","YAML","拓扑","状态").forEach { TextButton(onClick = { onTab(it) }) { Text(it) } } }
   Column(Modifier.weight(1f).verticalScroll(panelScroll),verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -133,7 +139,7 @@ class MainActivity: ComponentActivity() {
       if(s.claimed) { Text("${"★".repeat(if((ui.result ?: ui.save.progress.best[level.id] ?: 0) >= 90) 3 else if((ui.result ?: ui.save.progress.best[level.id] ?: 0) >= 75) 2 else 1)} ${ui.result ?: ui.save.progress.best[level.id]} 分 · +${level.rewards.xp} XP",style = MaterialTheme.typography.headlineSmall,color = MaterialTheme.colorScheme.primary); if(level.id < 50) Button(onClick = { vm.start(level.id+1) }) { Text("下一关") } }
      } else { Text("建立 Worker、运行 Pod、部署应用或暴露 Service。与剧情使用同一模拟引擎。"); Button(onClick = { vm.action(GameAction.AddNode("worker-${s.cluster.nodes.size+1}")) }) { Text("建设 Worker") }; Text(Terminal.help) }
     }
-    "终端" -> { Text("模拟 kubectl · 永不执行系统 shell",style = MaterialTheme.typography.labelLarge); SelectionContainerCompat(ui.output) }
+    "终端" -> { Text("模拟 kubectl · 永不执行系统 shell",style = MaterialTheme.typography.labelLarge); Text(ui.output,fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,style = MaterialTheme.typography.bodySmall) }
     "拓扑" -> { com.seki999.kubecraft.ui.Topology(s.cluster) }
     "YAML" -> { Text("Deployment 教学子集 · 只支持示例字段，不连接真实集群"); OutlinedTextField(yaml,{ yaml = it },modifier = Modifier.fillMaxWidth().heightIn(min = 280.dp),label = { Text("YAML 清单") }); Button(onClick = { vm.yaml(yaml) }) { Text("校验并创建 Deployment") }; Text(ui.output.takeLast(1000)) }
     "状态" -> { Text("集群对象",style = MaterialTheme.typography.titleLarge); s.cluster.nodes.forEach { n -> Text("${n.name} · Ready=${n.ready}\nCPU ${s.cluster.pods.filter { it.node == n.name }.sumOf { it.cpu }}/${n.cpu}m"); if(level == null) OutlinedButton(onClick = { vm.action(GameAction.SetNodeReady(n.name,!n.ready)) }) { Text(if(n.ready) "模拟节点故障" else "恢复节点") } }; s.cluster.pods.forEach { Text("${it.name}\n${it.phase} · ${it.image} · ${it.node ?: "未调度"}") }; s.cluster.services.forEach { Text("Service ${it.name} → ${it.endpoints.joinToString()}") }; Text("Events",style = MaterialTheme.typography.titleMedium); s.cluster.events.takeLast(15).reversed().forEach { Text("[${it.tick}] ${it.reason} ${it.message}",style = MaterialTheme.typography.bodySmall) } }
@@ -143,5 +149,5 @@ class MainActivity: ComponentActivity() {
   if(tab == "终端") Row(Modifier.fillMaxWidth().padding(vertical = 8.dp),verticalAlignment = Alignment.CenterVertically) { OutlinedTextField(command,{ command = it },modifier = Modifier.weight(1f),label = { Text("kubectl / help") },singleLine = true); TextButton(onClick = { vm.command(command); command = "" }) { Text("执行") } }
   OutlinedButton(onClick = { vm.action(GameAction.Tick) },modifier = Modifier.fillMaxWidth()) { Text("推进 1 tick · t=${s.cluster.tick}") }
  }
+ }
 }
-@Composable fun SelectionContainerCompat(text: String) { androidx.compose.foundation.text.selection.SelectionContainer { Text(text,fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,style = MaterialTheme.typography.bodySmall) } }
